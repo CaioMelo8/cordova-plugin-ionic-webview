@@ -134,7 +134,13 @@ public class IonicWebViewEngine extends SystemWebViewEngine {
 
     @Override
     public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-      return localServer.shouldInterceptRequest(request.getUrl(), request);
+      WebResourceResponse r = localServer.shouldInterceptRequest(request.getUrl(), request);
+
+      if (r == null) {
+          return super.shouldInterceptRequest(view, request);
+      }
+
+      return r;
     }
 
     @Override
